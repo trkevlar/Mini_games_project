@@ -1,0 +1,148 @@
+<html>
+<head>
+<title>UI.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+UI.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">Main</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">objects</span><span class="s2">.</span><span class="s1">Coin_obj</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">objects</span><span class="s2">.</span><span class="s1">MKey_obj</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">imageio</span><span class="s2">.</span><span class="s1">ImageIO</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">awt</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">awt</span><span class="s2">.</span><span class="s1">image</span><span class="s2">.</span><span class="s1">BufferedImage</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">IOException</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Objects</span><span class="s2">;</span>
+<span class="s0">public class </span><span class="s1">UI </span><span class="s2">{</span>
+    <span class="s1">GamePanel gp</span><span class="s2">;</span>
+    <span class="s1">Font arial_30</span><span class="s2">,</span><span class="s1">arial_40 </span><span class="s2">,</span><span class="s1">arial_80B</span><span class="s2">;</span>
+    <span class="s1">BufferedImage key_image</span><span class="s2">;</span>
+    <span class="s1">BufferedImage MKey_image</span><span class="s2">;</span>
+    <span class="s0">public boolean </span><span class="s1">messageOn </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+    <span class="s0">public boolean </span><span class="s1">onMap </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+    <span class="s0">public boolean </span><span class="s1">onMap2 </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+    <span class="s0">public </span><span class="s1">String message </span><span class="s2">= </span><span class="s3">&quot;&quot;</span><span class="s2">;</span>
+    <span class="s0">int </span><span class="s1">messageCounter </span><span class="s2">= </span><span class="s4">0</span><span class="s2">;</span>
+    <span class="s0">int </span><span class="s1">mapC </span><span class="s2">= </span><span class="s4">0</span><span class="s2">;</span>
+    <span class="s0">public boolean </span><span class="s1">Gamefinnished </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">UI</span><span class="s2">(</span><span class="s1">GamePanel gp</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">gp </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">;</span>
+        <span class="s1">arial_30 </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Font</span><span class="s2">(</span><span class="s3">&quot;Arial&quot;</span><span class="s2">, </span><span class="s1">Font</span><span class="s2">.</span><span class="s1">PLAIN</span><span class="s2">, </span><span class="s4">30</span><span class="s2">);</span>
+        <span class="s1">arial_40 </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Font</span><span class="s2">(</span><span class="s3">&quot;Arial&quot;</span><span class="s2">, </span><span class="s1">Font</span><span class="s2">.</span><span class="s1">PLAIN</span><span class="s2">, </span><span class="s4">40</span><span class="s2">);</span>
+        <span class="s1">arial_80B </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Font</span><span class="s2">(</span><span class="s3">&quot;Arial&quot;</span><span class="s2">, </span><span class="s1">Font</span><span class="s2">.</span><span class="s1">BOLD</span><span class="s2">, </span><span class="s4">80</span><span class="s2">);</span>
+        <span class="s1">Coin_obj key </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Coin_obj</span><span class="s2">(</span><span class="s1">gp</span><span class="s2">);</span>
+        <span class="s1">MKey_obj Mkey </span><span class="s2">= </span><span class="s0">new </span><span class="s1">MKey_obj</span><span class="s2">(</span><span class="s1">gp</span><span class="s2">);</span>
+        <span class="s1">key_image </span><span class="s2">= </span><span class="s1">key</span><span class="s2">.</span><span class="s1">image</span><span class="s2">;</span>
+        <span class="s1">MKey_image </span><span class="s2">= </span><span class="s1">Mkey</span><span class="s2">.</span><span class="s1">image</span><span class="s2">;</span>
+    <span class="s2">}</span>
+    <span class="s0">public void </span><span class="s1">showMessage</span><span class="s2">(</span><span class="s1">String msg</span><span class="s2">) {</span>
+        <span class="s1">message </span><span class="s2">= </span><span class="s1">msg</span><span class="s2">;</span>
+        <span class="s1">messageOn </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">mapDraw</span><span class="s2">(</span><span class="s0">int </span><span class="s1">i</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">i </span><span class="s2">== </span><span class="s4">1</span><span class="s2">) {</span>
+            <span class="s1">onMap </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">i </span><span class="s2">== </span><span class="s4">2</span><span class="s2">) {</span>
+            <span class="s1">onMap2 </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+    <span class="s0">public void </span><span class="s1">Draw</span><span class="s2">(</span><span class="s1">Graphics2D g2</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">Gamefinnished</span><span class="s2">) {</span>
+            <span class="s1">String text </span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">textLength </span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">x</span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">y</span><span class="s2">;</span>
+
+            <span class="s1">g2</span><span class="s2">.</span><span class="s1">setFont</span><span class="s2">(</span><span class="s1">arial_30</span><span class="s2">);</span>
+            <span class="s1">g2</span><span class="s2">.</span><span class="s1">setColor</span><span class="s2">(</span><span class="s1">Color</span><span class="s2">.</span><span class="s1">yellow</span><span class="s2">);</span>
+            <span class="s1">text </span><span class="s2">= </span><span class="s3">&quot;You found the ultimate Card!&quot;</span><span class="s2">;</span>
+            <span class="s1">textLength </span><span class="s2">= (</span><span class="s0">int</span><span class="s2">)</span><span class="s1">g2</span><span class="s2">.</span><span class="s1">getFontMetrics</span><span class="s2">().</span><span class="s1">getStringBounds</span><span class="s2">(</span><span class="s1">text</span><span class="s2">,</span><span class="s1">g2</span><span class="s2">).</span><span class="s1">getWidth</span><span class="s2">();</span>
+            <span class="s1">x </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">screenWidth </span><span class="s2">/ </span><span class="s4">2 </span><span class="s2">- </span><span class="s1">textLength </span><span class="s2">/ </span><span class="s4">2</span><span class="s2">;</span>
+            <span class="s1">y </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">screenHeight </span><span class="s2">/ </span><span class="s4">2 </span><span class="s2">- (</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">*</span><span class="s4">2</span><span class="s2">);</span>
+            <span class="s1">g2</span><span class="s2">.</span><span class="s1">drawString</span><span class="s2">(</span><span class="s1">text</span><span class="s2">,</span><span class="s1">x</span><span class="s2">,</span><span class="s1">y</span><span class="s2">);</span>
+
+            <span class="s1">g2</span><span class="s2">.</span><span class="s1">setFont</span><span class="s2">(</span><span class="s1">arial_80B</span><span class="s2">);</span>
+            <span class="s1">g2</span><span class="s2">.</span><span class="s1">setColor</span><span class="s2">(</span><span class="s1">Color</span><span class="s2">.</span><span class="s1">orange</span><span class="s2">);</span>
+            <span class="s1">text </span><span class="s2">= </span><span class="s3">&quot;Congratulations!&quot;</span><span class="s2">;</span>
+            <span class="s1">textLength </span><span class="s2">= (</span><span class="s0">int</span><span class="s2">)</span><span class="s1">g2</span><span class="s2">.</span><span class="s1">getFontMetrics</span><span class="s2">().</span><span class="s1">getStringBounds</span><span class="s2">(</span><span class="s1">text</span><span class="s2">,</span><span class="s1">g2</span><span class="s2">).</span><span class="s1">getWidth</span><span class="s2">();</span>
+            <span class="s1">x </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">screenWidth </span><span class="s2">/ </span><span class="s4">2 </span><span class="s2">- </span><span class="s1">textLength </span><span class="s2">/ </span><span class="s4">2</span><span class="s2">;</span>
+            <span class="s1">y </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">screenHeight </span><span class="s2">/ </span><span class="s4">2 </span><span class="s2">+ (</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">*</span><span class="s4">2</span><span class="s2">);</span>
+            <span class="s1">g2</span><span class="s2">.</span><span class="s1">drawString</span><span class="s2">(</span><span class="s1">text</span><span class="s2">,</span><span class="s1">x</span><span class="s2">,</span><span class="s1">y</span><span class="s2">);</span>
+
+            <span class="s1">gp</span><span class="s2">.</span><span class="s1">gameThread </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s0">else </span><span class="s2">{</span>
+            <span class="s1">g2</span><span class="s2">.</span><span class="s1">setFont</span><span class="s2">(</span><span class="s1">arial_30</span><span class="s2">);</span>
+            <span class="s1">g2</span><span class="s2">.</span><span class="s1">setColor</span><span class="s2">(</span><span class="s1">Color</span><span class="s2">.</span><span class="s1">white</span><span class="s2">);</span>
+            <span class="s1">g2</span><span class="s2">.</span><span class="s1">drawImage</span><span class="s2">(</span><span class="s1">key_image</span><span class="s2">, </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize </span><span class="s2">/ </span><span class="s4">2</span><span class="s2">, </span><span class="s4">0</span><span class="s2">, </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">, </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">, </span><span class="s0">null</span><span class="s2">);</span>
+            <span class="s1">g2</span><span class="s2">.</span><span class="s1">drawString</span><span class="s2">(</span><span class="s3">&quot;x &quot; </span><span class="s2">+ </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">haskeys</span><span class="s2">, </span><span class="s4">95</span><span class="s2">, </span><span class="s4">40</span><span class="s2">);</span>
+            <span class="s1">g2</span><span class="s2">.</span><span class="s1">drawImage</span><span class="s2">(</span><span class="s1">MKey_image</span><span class="s2">,( </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">* </span><span class="s4">5</span><span class="s2">)/</span><span class="s4">2</span><span class="s2">, </span><span class="s4">0</span><span class="s2">, </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">, </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">, </span><span class="s0">null</span><span class="s2">);</span>
+            <span class="s1">g2</span><span class="s2">.</span><span class="s1">drawString</span><span class="s2">(</span><span class="s3">&quot;x &quot; </span><span class="s2">+ </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">hasMkey</span><span class="s2">, </span><span class="s4">225</span><span class="s2">, </span><span class="s4">40</span><span class="s2">);</span>
+
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">messageOn</span><span class="s2">) {</span>
+                <span class="s1">g2</span><span class="s2">.</span><span class="s1">setFont</span><span class="s2">(</span><span class="s1">g2</span><span class="s2">.</span><span class="s1">getFont</span><span class="s2">().</span><span class="s1">deriveFont</span><span class="s2">(</span><span class="s4">20F</span><span class="s2">));</span>
+                <span class="s1">g2</span><span class="s2">.</span><span class="s1">drawString</span><span class="s2">(</span><span class="s1">message</span><span class="s2">, </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">ScreenX </span><span class="s2">- </span><span class="s4">60</span><span class="s2">, </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">ScreenY </span><span class="s2">+ </span><span class="s4">65</span><span class="s2">);</span>
+                <span class="s1">messageCounter</span><span class="s2">++;</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">messageCounter </span><span class="s2">&gt; </span><span class="s4">120</span><span class="s2">) {</span>
+                    <span class="s1">messageCounter </span><span class="s2">= </span><span class="s4">0</span><span class="s2">;</span>
+                    <span class="s1">messageOn </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+             <span class="s0">if </span><span class="s2">(</span><span class="s1">onMap</span><span class="s2">) {</span>
+                 <span class="s1">UtilityTool ut </span><span class="s2">= </span><span class="s0">new </span><span class="s1">UtilityTool</span><span class="s2">();</span>
+                 <span class="s1">BufferedImage imagscale </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+                 <span class="s0">int </span><span class="s1">ScreenX</span><span class="s2">,</span><span class="s1">ScreenY</span><span class="s2">;</span>
+                 <span class="s1">ScreenX</span><span class="s2">=</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">screenWidth</span><span class="s2">/</span><span class="s4">2 </span><span class="s2">-(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">*</span><span class="s4">4</span><span class="s2">);</span>
+                 <span class="s1">ScreenY</span><span class="s2">=</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">screenHeight</span><span class="s2">/</span><span class="s4">2</span><span class="s2">-(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">*</span><span class="s4">4</span><span class="s2">);</span>
+                 <span class="s0">try </span><span class="s2">{</span>
+                     <span class="s1">imagscale </span><span class="s2">= </span><span class="s1">ImageIO</span><span class="s2">.</span><span class="s1">read</span><span class="s2">(</span><span class="s1">Objects</span><span class="s2">.</span><span class="s1">requireNonNull</span><span class="s2">(</span><span class="s1">getClass</span><span class="s2">().</span><span class="s1">getResourceAsStream</span><span class="s2">(</span><span class="s3">&quot;/tiles/map.png&quot;</span><span class="s2">)));</span>
+                     <span class="s1">imagscale </span><span class="s2">= </span><span class="s1">ut</span><span class="s2">.</span><span class="s1">scaledImage</span><span class="s2">(</span><span class="s1">imagscale</span><span class="s2">, </span><span class="s4">500</span><span class="s2">, </span><span class="s4">500</span><span class="s2">);</span>
+                 <span class="s2">}</span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IOException e</span><span class="s2">){</span>
+                     <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+                 <span class="s2">}</span>
+                 <span class="s1">g2</span><span class="s2">.</span><span class="s1">drawImage</span><span class="s2">(</span><span class="s1">imagscale</span><span class="s2">, </span><span class="s1">ScreenX</span><span class="s2">, </span><span class="s1">ScreenY</span><span class="s2">,</span><span class="s0">null</span><span class="s2">);</span>
+                 <span class="s1">mapC</span><span class="s2">++;</span>
+                 <span class="s0">if </span><span class="s2">(</span><span class="s1">mapC </span><span class="s2">&gt; </span><span class="s4">120</span><span class="s2">) {</span>
+                     <span class="s1">mapC </span><span class="s2">= </span><span class="s4">0</span><span class="s2">;</span>
+                     <span class="s1">onMap </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+                 <span class="s2">}</span>
+             <span class="s2">}</span>
+             <span class="s0">if </span><span class="s2">(</span><span class="s1">onMap2</span><span class="s2">) {</span>
+                <span class="s1">UtilityTool ut </span><span class="s2">= </span><span class="s0">new </span><span class="s1">UtilityTool</span><span class="s2">();</span>
+                <span class="s1">BufferedImage imagscale </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+                <span class="s0">int </span><span class="s1">ScreenX</span><span class="s2">,</span><span class="s1">ScreenY</span><span class="s2">;</span>
+                <span class="s1">ScreenX</span><span class="s2">=</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">screenWidth</span><span class="s2">/</span><span class="s4">2 </span><span class="s2">-(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">*</span><span class="s4">4</span><span class="s2">);</span>
+                <span class="s1">ScreenY</span><span class="s2">=</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">screenHeight</span><span class="s2">/</span><span class="s4">2</span><span class="s2">-(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">*</span><span class="s4">4</span><span class="s2">);</span>
+                <span class="s0">try </span><span class="s2">{</span>
+                    <span class="s1">imagscale </span><span class="s2">= </span><span class="s1">ImageIO</span><span class="s2">.</span><span class="s1">read</span><span class="s2">(</span><span class="s1">Objects</span><span class="s2">.</span><span class="s1">requireNonNull</span><span class="s2">(</span><span class="s1">getClass</span><span class="s2">().</span><span class="s1">getResourceAsStream</span><span class="s2">(</span><span class="s3">&quot;/tiles/uimap.png&quot;</span><span class="s2">)));</span>
+                    <span class="s1">imagscale </span><span class="s2">= </span><span class="s1">ut</span><span class="s2">.</span><span class="s1">scaledImage</span><span class="s2">(</span><span class="s1">imagscale</span><span class="s2">, </span><span class="s4">500</span><span class="s2">, </span><span class="s4">500</span><span class="s2">);</span>
+                <span class="s2">}</span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IOException e</span><span class="s2">){</span>
+                    <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+                <span class="s2">}</span>
+                <span class="s1">g2</span><span class="s2">.</span><span class="s1">drawImage</span><span class="s2">(</span><span class="s1">imagscale</span><span class="s2">, </span><span class="s1">ScreenX</span><span class="s2">, </span><span class="s1">ScreenY</span><span class="s2">,</span><span class="s0">null</span><span class="s2">);</span>
+                <span class="s1">mapC</span><span class="s2">++;</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">mapC </span><span class="s2">&gt; </span><span class="s4">120</span><span class="s2">) {</span>
+                    <span class="s1">mapC </span><span class="s2">= </span><span class="s4">0</span><span class="s2">;</span>
+                    <span class="s1">onMap2 </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span></pre>
+</body>
+</html>

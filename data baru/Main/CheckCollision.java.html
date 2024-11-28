@@ -1,0 +1,138 @@
+<html>
+<head>
+<title>CheckCollision.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+CheckCollision.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">Main</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">Entity</span><span class="s2">;</span>
+<span class="s0">public class </span><span class="s1">CheckCollision </span><span class="s2">{</span>
+    <span class="s1">GamePanel gp</span><span class="s2">;</span>
+    <span class="s0">public </span><span class="s1">CheckCollision</span><span class="s2">(</span><span class="s1">GamePanel gp</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">gp </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">;</span>
+    <span class="s2">}</span>
+    <span class="s0">public void </span><span class="s1">checkTile</span><span class="s2">(</span><span class="s1">Entity entity</span><span class="s2">) {</span>
+
+        <span class="s0">int </span><span class="s1">entityleftWorldX </span><span class="s2">= </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">worldx </span><span class="s2">+ </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">x</span><span class="s2">;</span>
+        <span class="s0">int </span><span class="s1">entityrightWorldX </span><span class="s2">= </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">worldx </span><span class="s2">+ </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">x </span><span class="s2">+ </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">width</span><span class="s2">;</span>
+        <span class="s0">int </span><span class="s1">entitytopWorldY </span><span class="s2">= </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">worldy </span><span class="s2">+ </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">y</span><span class="s2">;</span>
+        <span class="s0">int </span><span class="s1">entitybottomWorldY </span><span class="s2">= </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">worldy </span><span class="s2">+ </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">y </span><span class="s2">+ </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">height</span><span class="s2">;</span>
+
+        <span class="s0">int </span><span class="s1">EntityleftCol </span><span class="s2">= </span><span class="s1">entityleftWorldX </span><span class="s2">/ </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">;</span>
+        <span class="s0">int </span><span class="s1">EntityrightCol </span><span class="s2">= </span><span class="s1">entityrightWorldX </span><span class="s2">/ </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">;</span>
+        <span class="s0">int </span><span class="s1">EntitytopRow </span><span class="s2">= </span><span class="s1">entitytopWorldY </span><span class="s2">/ </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">;</span>
+        <span class="s0">int </span><span class="s1">EntitybottomRow </span><span class="s2">= </span><span class="s1">entitybottomWorldY </span><span class="s2">/ </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">;</span>
+
+        <span class="s0">int </span><span class="s1">TileNum1</span><span class="s2">, </span><span class="s1">TileNum2</span><span class="s2">;</span>
+        <span class="s0">switch </span><span class="s2">(</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">direction</span><span class="s2">) {</span>
+            <span class="s0">case </span><span class="s3">&quot;up&quot;</span><span class="s2">:</span>
+                <span class="s1">EntitytopRow </span><span class="s2">= (</span><span class="s1">entitytopWorldY </span><span class="s2">- </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">speed</span><span class="s2">) / </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">;</span>
+                <span class="s1">TileNum1 </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">mapTileNum</span><span class="s2">[</span><span class="s1">EntityleftCol</span><span class="s2">][</span><span class="s1">EntitytopRow</span><span class="s2">];</span>
+                <span class="s1">TileNum2 </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">mapTileNum</span><span class="s2">[</span><span class="s1">EntityrightCol</span><span class="s2">][</span><span class="s1">EntitytopRow</span><span class="s2">];</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">tile</span><span class="s2">[</span><span class="s1">TileNum1</span><span class="s2">].</span><span class="s1">collision </span><span class="s2">|| </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">tile</span><span class="s2">[</span><span class="s1">TileNum2</span><span class="s2">].</span><span class="s1">collision</span><span class="s2">) {</span>
+                    <span class="s1">entity</span><span class="s2">.</span><span class="s1">collisionOn </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s0">break</span><span class="s2">;</span>
+            <span class="s0">case </span><span class="s3">&quot;down&quot;</span><span class="s2">:</span>
+                <span class="s1">EntitybottomRow </span><span class="s2">= (</span><span class="s1">entitybottomWorldY </span><span class="s2">+ </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">speed</span><span class="s2">) / </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">;</span>
+                <span class="s1">TileNum1 </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">mapTileNum</span><span class="s2">[</span><span class="s1">EntityleftCol</span><span class="s2">][</span><span class="s1">EntitybottomRow</span><span class="s2">];</span>
+                <span class="s1">TileNum2 </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">mapTileNum</span><span class="s2">[</span><span class="s1">EntityrightCol</span><span class="s2">][</span><span class="s1">EntitybottomRow</span><span class="s2">];</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">tile</span><span class="s2">[</span><span class="s1">TileNum1</span><span class="s2">].</span><span class="s1">collision </span><span class="s2">|| </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">tile</span><span class="s2">[</span><span class="s1">TileNum2</span><span class="s2">].</span><span class="s1">collision</span><span class="s2">) {</span>
+                    <span class="s1">entity</span><span class="s2">.</span><span class="s1">collisionOn </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s0">break</span><span class="s2">;</span>
+            <span class="s0">case </span><span class="s3">&quot;left&quot;</span><span class="s2">:</span>
+                <span class="s1">EntityleftCol </span><span class="s2">= (</span><span class="s1">entityleftWorldX </span><span class="s2">- </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">speed</span><span class="s2">) / </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">;</span>
+                <span class="s1">TileNum1 </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">mapTileNum</span><span class="s2">[</span><span class="s1">EntityleftCol</span><span class="s2">][</span><span class="s1">EntitytopRow</span><span class="s2">];</span>
+                <span class="s1">TileNum2 </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">mapTileNum</span><span class="s2">[</span><span class="s1">EntityleftCol</span><span class="s2">][</span><span class="s1">EntitybottomRow</span><span class="s2">];</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">tile</span><span class="s2">[</span><span class="s1">TileNum1</span><span class="s2">].</span><span class="s1">collision </span><span class="s2">|| </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">tile</span><span class="s2">[</span><span class="s1">TileNum2</span><span class="s2">].</span><span class="s1">collision</span><span class="s2">) {</span>
+                    <span class="s1">entity</span><span class="s2">.</span><span class="s1">collisionOn </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s0">break</span><span class="s2">;</span>
+            <span class="s0">case </span><span class="s3">&quot;right&quot;</span><span class="s2">:</span>
+                <span class="s1">EntityrightCol </span><span class="s2">= (</span><span class="s1">entityrightWorldX </span><span class="s2">+ </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">speed</span><span class="s2">) / </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">;</span>
+                <span class="s1">TileNum1 </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">mapTileNum</span><span class="s2">[</span><span class="s1">EntityrightCol</span><span class="s2">][</span><span class="s1">EntitytopRow</span><span class="s2">];</span>
+                <span class="s1">TileNum2 </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">mapTileNum</span><span class="s2">[</span><span class="s1">EntityrightCol</span><span class="s2">][</span><span class="s1">EntitybottomRow</span><span class="s2">];</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">tile</span><span class="s2">[</span><span class="s1">TileNum1</span><span class="s2">].</span><span class="s1">collision </span><span class="s2">|| </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileM</span><span class="s2">.</span><span class="s1">tile</span><span class="s2">[</span><span class="s1">TileNum2</span><span class="s2">].</span><span class="s1">collision</span><span class="s2">) {</span>
+                    <span class="s1">entity</span><span class="s2">.</span><span class="s1">collisionOn </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s0">break</span><span class="s2">;</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+    <span class="s0">public int </span><span class="s1">checkItemCol</span><span class="s2">(</span><span class="s1">Entity entity</span><span class="s2">, </span><span class="s0">boolean </span><span class="s1">player</span><span class="s2">) {</span>
+        <span class="s0">int </span><span class="s1">index </span><span class="s2">= </span><span class="s4">999</span><span class="s2">;</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s4">0</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt; </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">.</span><span class="s1">length</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] != </span><span class="s0">null</span><span class="s2">) {</span>
+                <span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">x </span><span class="s2">= </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">worldx </span><span class="s2">+ </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">x</span><span class="s2">;</span>
+                <span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">y </span><span class="s2">= </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">worldy </span><span class="s2">+ </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">y</span><span class="s2">;</span>
+                <span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">solidArea</span><span class="s2">.</span><span class="s1">x </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">worldx </span><span class="s2">+ </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">solidArea</span><span class="s2">.</span><span class="s1">x</span><span class="s2">;</span>
+                <span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">solidArea</span><span class="s2">.</span><span class="s1">y </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">worldy </span><span class="s2">+ </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">solidArea</span><span class="s2">.</span><span class="s1">y</span><span class="s2">;</span>
+                <span class="s0">switch </span><span class="s2">(</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">direction</span><span class="s2">) {</span>
+                    <span class="s0">case </span><span class="s3">&quot;up&quot;</span><span class="s2">:</span>
+                        <span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">y </span><span class="s2">-= </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">speed</span><span class="s2">;</span>
+                        <span class="s0">if </span><span class="s2">(</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">intersects</span><span class="s2">(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">solidArea</span><span class="s2">)) {</span>
+                            <span class="s0">if </span><span class="s2">(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">collision</span><span class="s2">) {</span>
+                                <span class="s1">entity</span><span class="s2">.</span><span class="s1">collisionOn </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                            <span class="s2">}</span>
+                            <span class="s0">if </span><span class="s2">(</span><span class="s1">player</span><span class="s2">) {</span>
+                                <span class="s1">index </span><span class="s2">= </span><span class="s1">i</span><span class="s2">;</span>
+                            <span class="s2">}</span>
+                        <span class="s2">}</span>
+                        <span class="s0">break</span><span class="s2">;</span>
+                    <span class="s0">case </span><span class="s3">&quot;down&quot;</span><span class="s2">:</span>
+                        <span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">y </span><span class="s2">+= </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">speed</span><span class="s2">;</span>
+                        <span class="s0">if </span><span class="s2">(</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">intersects</span><span class="s2">(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">solidArea</span><span class="s2">)) {</span>
+                            <span class="s0">if </span><span class="s2">(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">collision</span><span class="s2">) {</span>
+                                <span class="s1">entity</span><span class="s2">.</span><span class="s1">collisionOn </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                            <span class="s2">}</span>
+                            <span class="s0">if </span><span class="s2">(</span><span class="s1">player</span><span class="s2">) {</span>
+                                <span class="s1">index </span><span class="s2">= </span><span class="s1">i</span><span class="s2">;</span>
+                            <span class="s2">}</span>
+                        <span class="s2">}</span>
+                        <span class="s0">break</span><span class="s2">;</span>
+                    <span class="s0">case </span><span class="s3">&quot;left&quot;</span><span class="s2">:</span>
+                        <span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">x </span><span class="s2">-= </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">speed</span><span class="s2">;</span>
+                        <span class="s0">if </span><span class="s2">(</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">intersects</span><span class="s2">(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">solidArea</span><span class="s2">)) {</span>
+                            <span class="s0">if </span><span class="s2">(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">collision</span><span class="s2">) {</span>
+                                <span class="s1">entity</span><span class="s2">.</span><span class="s1">collisionOn </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                            <span class="s2">}</span>
+                            <span class="s0">if </span><span class="s2">(</span><span class="s1">player</span><span class="s2">) {</span>
+                                <span class="s1">index </span><span class="s2">= </span><span class="s1">i</span><span class="s2">;</span>
+                            <span class="s2">}</span>
+                        <span class="s2">}</span>
+                        <span class="s0">break</span><span class="s2">;</span>
+                    <span class="s0">case </span><span class="s3">&quot;right&quot;</span><span class="s2">:</span>
+                        <span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">x </span><span class="s2">+= </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">speed</span><span class="s2">;</span>
+                        <span class="s0">if </span><span class="s2">(</span><span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">intersects</span><span class="s2">(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">solidArea</span><span class="s2">)) {</span>
+                            <span class="s0">if </span><span class="s2">(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">collision</span><span class="s2">) {</span>
+                                <span class="s1">entity</span><span class="s2">.</span><span class="s1">collisionOn </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                            <span class="s2">}</span>
+                            <span class="s0">if </span><span class="s2">(</span><span class="s1">player</span><span class="s2">) {</span>
+                                <span class="s1">index </span><span class="s2">= </span><span class="s1">i</span><span class="s2">;</span>
+                            <span class="s2">}</span>
+                        <span class="s2">}</span>
+                        <span class="s0">break</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">x </span><span class="s2">= </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">solidAreaDefaultX</span><span class="s2">;</span>
+                <span class="s1">entity</span><span class="s2">.</span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">y </span><span class="s2">= </span><span class="s1">entity</span><span class="s2">.</span><span class="s1">solidAreaDefaultY</span><span class="s2">;</span>
+                <span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">solidArea</span><span class="s2">.</span><span class="s1">x </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">solidAreaDefaultx</span><span class="s2">;</span>
+                <span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">solidArea</span><span class="s2">.</span><span class="s1">y </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">solidAreaDefaulty</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">index</span><span class="s2">;</span>
+    <span class="s2">}</span>
+<span class="s2">}</span></pre>
+</body>
+</html>

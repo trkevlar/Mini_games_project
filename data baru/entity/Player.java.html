@@ -1,0 +1,267 @@
+<html>
+<head>
+<title>Player.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #6aab73;}
+.s5 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Player.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">entity</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">Main</span><span class="s2">.</span><span class="s1">Fight</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">Main</span><span class="s2">.</span><span class="s1">GamePanel</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">Main</span><span class="s2">.</span><span class="s1">KeyHandler</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">Main</span><span class="s2">.</span><span class="s1">UtilityTool</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">objects</span><span class="s2">.</span><span class="s1">Opponents</span><span class="s2">;</span>
+
+
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">imageio</span><span class="s2">.</span><span class="s1">ImageIO</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">swing</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">awt</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">awt</span><span class="s2">.</span><span class="s1">image</span><span class="s2">.</span><span class="s1">BufferedImage</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">IOException</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Objects</span><span class="s2">;</span>
+<span class="s0">public class </span><span class="s1">Player </span><span class="s0">extends </span><span class="s1">Entity </span><span class="s2">{</span>
+    <span class="s1">KeyHandler keyH</span><span class="s2">;</span>
+    <span class="s0">public final int </span><span class="s1">ScreenX</span><span class="s2">;</span>
+    <span class="s0">public final int </span><span class="s1">ScreenY</span><span class="s2">;</span>
+    <span class="s0">public int </span><span class="s1">haskeys</span><span class="s2">;</span>
+    <span class="s0">public int </span><span class="s1">hasMkey</span><span class="s2">;</span>
+    <span class="s0">public int </span><span class="s1">hascard</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">Player</span><span class="s2">(</span><span class="s1">GamePanel gp</span><span class="s2">, </span><span class="s1">KeyHandler keyH</span><span class="s2">) {</span>
+        <span class="s0">super</span><span class="s2">(</span><span class="s1">gp</span><span class="s2">);</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">keyH </span><span class="s2">= </span><span class="s1">keyH</span><span class="s2">;</span>
+       <span class="s1">ScreenX</span><span class="s2">=</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">screenWidth</span><span class="s2">/</span><span class="s3">2 </span><span class="s2">-(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">/</span><span class="s3">2</span><span class="s2">);</span>
+       <span class="s1">ScreenY</span><span class="s2">=</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">screenHeight</span><span class="s2">/</span><span class="s3">2</span><span class="s2">-(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">/</span><span class="s3">2</span><span class="s2">);</span>
+       <span class="s1">SolidArea </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Rectangle</span><span class="s2">();</span>
+       <span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">x </span><span class="s2">= </span><span class="s3">16</span><span class="s2">;</span>
+       <span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">y </span><span class="s2">= </span><span class="s3">28</span><span class="s2">;</span>
+       <span class="s1">solidAreaDefaultX </span><span class="s2">= </span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">x</span><span class="s2">;</span>
+       <span class="s1">solidAreaDefaultY </span><span class="s2">= </span><span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">y</span><span class="s2">;</span>
+       <span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">width </span><span class="s2">= </span><span class="s3">32</span><span class="s2">;</span>
+       <span class="s1">SolidArea</span><span class="s2">.</span><span class="s1">height </span><span class="s2">= </span><span class="s3">32</span><span class="s2">;</span>
+        <span class="s1">setDefaultValues</span><span class="s2">();</span>
+        <span class="s1">getPlayerImage</span><span class="s2">();</span>
+    <span class="s2">}</span>
+    <span class="s0">public void </span><span class="s1">setDefaultValues</span><span class="s2">(){</span>
+        <span class="s1">worldx </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">*</span><span class="s3">30</span><span class="s2">;</span>
+        <span class="s1">worldy </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">*</span><span class="s3">27</span><span class="s2">;</span>
+        <span class="s1">speed </span><span class="s2">= </span><span class="s3">4</span><span class="s2">;</span>
+        <span class="s1">direction </span><span class="s2">= </span><span class="s4">&quot;down&quot;</span><span class="s2">;</span>
+    <span class="s2">}</span>
+    <span class="s0">public void </span><span class="s1">getPlayerImage</span><span class="s2">(){</span>
+        <span class="s1">up1 </span><span class="s2">= </span><span class="s1">setup</span><span class="s2">(</span><span class="s4">&quot;up1&quot;</span><span class="s2">);</span>
+        <span class="s1">up2 </span><span class="s2">= </span><span class="s1">setup</span><span class="s2">(</span><span class="s4">&quot;up2&quot;</span><span class="s2">);</span>
+        <span class="s1">down1 </span><span class="s2">= </span><span class="s1">setup</span><span class="s2">(</span><span class="s4">&quot;down1&quot;</span><span class="s2">);</span>
+        <span class="s1">down2 </span><span class="s2">= </span><span class="s1">setup</span><span class="s2">(</span><span class="s4">&quot;down2&quot;</span><span class="s2">);</span>
+        <span class="s1">left1 </span><span class="s2">= </span><span class="s1">setup</span><span class="s2">(</span><span class="s4">&quot;left1&quot;</span><span class="s2">);</span>
+        <span class="s1">left2 </span><span class="s2">= </span><span class="s1">setup</span><span class="s2">(</span><span class="s4">&quot;left2&quot;</span><span class="s2">);</span>
+        <span class="s1">right1 </span><span class="s2">= </span><span class="s1">setup</span><span class="s2">(</span><span class="s4">&quot;right1&quot;</span><span class="s2">);</span>
+        <span class="s1">right2 </span><span class="s2">= </span><span class="s1">setup</span><span class="s2">(</span><span class="s4">&quot;right2&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+    <span class="s0">public </span><span class="s1">BufferedImage setup</span><span class="s2">(</span><span class="s1">String imageName</span><span class="s2">){</span>
+        <span class="s1">UtilityTool ut </span><span class="s2">= </span><span class="s0">new </span><span class="s1">UtilityTool</span><span class="s2">();</span>
+        <span class="s1">BufferedImage imgscale </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+        <span class="s0">try </span><span class="s2">{</span>
+            <span class="s1">imgscale </span><span class="s2">= </span><span class="s1">ImageIO</span><span class="s2">.</span><span class="s1">read</span><span class="s2">(</span><span class="s1">Objects</span><span class="s2">.</span><span class="s1">requireNonNull</span><span class="s2">(</span><span class="s1">getClass</span><span class="s2">().</span><span class="s1">getResourceAsStream</span><span class="s2">(</span><span class="s4">&quot;/player/&quot; </span><span class="s2">+ </span><span class="s1">imageName </span><span class="s2">+ </span><span class="s4">&quot;.png&quot;</span><span class="s2">)));</span>
+            <span class="s1">imgscale </span><span class="s2">= </span><span class="s1">ut</span><span class="s2">.</span><span class="s1">scaledImage</span><span class="s2">(</span><span class="s1">imgscale</span><span class="s2">, </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">, </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">);</span>
+        <span class="s2">}</span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IOException e</span><span class="s2">){</span>
+            <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">imgscale</span><span class="s2">;</span>
+    <span class="s2">}</span>
+    <span class="s0">public void </span><span class="s1">update</span><span class="s2">(){</span>
+        <span class="s0">if</span><span class="s2">(</span><span class="s1">keyH</span><span class="s2">.</span><span class="s1">upPressed </span><span class="s2">|| </span><span class="s1">keyH</span><span class="s2">.</span><span class="s1">downPressed </span><span class="s2">|| </span><span class="s1">keyH</span><span class="s2">.</span><span class="s1">leftPressed </span><span class="s2">|| </span><span class="s1">keyH</span><span class="s2">.</span><span class="s1">rightPressed</span><span class="s2">){</span>
+            <span class="s0">if</span><span class="s2">(</span><span class="s1">keyH</span><span class="s2">.</span><span class="s1">upPressed</span><span class="s2">){</span>
+                <span class="s1">direction </span><span class="s2">= </span><span class="s4">&quot;up&quot;</span><span class="s2">;</span>
+            <span class="s2">}</span>
+            <span class="s0">else if</span><span class="s2">(</span><span class="s1">keyH</span><span class="s2">.</span><span class="s1">downPressed</span><span class="s2">){</span>
+                <span class="s1">direction </span><span class="s2">= </span><span class="s4">&quot;down&quot;</span><span class="s2">;</span>
+            <span class="s2">}</span>
+            <span class="s0">else if</span><span class="s2">(</span><span class="s1">keyH</span><span class="s2">.</span><span class="s1">leftPressed</span><span class="s2">){</span>
+                <span class="s1">direction </span><span class="s2">= </span><span class="s4">&quot;left&quot;</span><span class="s2">;</span>
+            <span class="s2">}</span>
+            <span class="s0">else if</span><span class="s2">(</span><span class="s1">keyH</span><span class="s2">.</span><span class="s1">rightPressed</span><span class="s2">){</span>
+                <span class="s1">direction </span><span class="s2">= </span><span class="s4">&quot;right&quot;</span><span class="s2">;</span>
+            <span class="s2">}</span>
+            <span class="s5">// Check all collisions</span>
+            <span class="s1">collisionOn </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+            <span class="s1">gp</span><span class="s2">.</span><span class="s1">cChecker</span><span class="s2">.</span><span class="s1">checkTile</span><span class="s2">(</span><span class="s0">this</span><span class="s2">);</span>
+            <span class="s5">// Check obj col</span>
+            <span class="s0">int </span><span class="s1">objIndex </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">cChecker</span><span class="s2">.</span><span class="s1">checkItemCol</span><span class="s2">(</span><span class="s0">this</span><span class="s2">,</span><span class="s0">true</span><span class="s2">);</span>
+            <span class="s1">pickUpObj</span><span class="s2">(</span><span class="s1">objIndex</span><span class="s2">);</span>
+            <span class="s5">// if collisoin non</span>
+            <span class="s0">if </span><span class="s2">(!</span><span class="s1">collisionOn</span><span class="s2">) {</span>
+                <span class="s0">switch </span><span class="s2">(</span><span class="s1">direction</span><span class="s2">) {</span>
+                    <span class="s0">case </span><span class="s4">&quot;up&quot;</span><span class="s2">:</span>
+                        <span class="s1">worldy </span><span class="s2">-= </span><span class="s1">speed</span><span class="s2">;  </span><span class="s0">break</span><span class="s2">;</span>
+                    <span class="s0">case </span><span class="s4">&quot;down&quot;</span><span class="s2">:</span>
+                        <span class="s1">worldy </span><span class="s2">+= </span><span class="s1">speed</span><span class="s2">;  </span><span class="s0">break</span><span class="s2">;</span>
+                    <span class="s0">case </span><span class="s4">&quot;left&quot;</span><span class="s2">:</span>
+                        <span class="s1">worldx </span><span class="s2">-= </span><span class="s1">speed</span><span class="s2">;  </span><span class="s0">break</span><span class="s2">;</span>
+                    <span class="s0">case </span><span class="s4">&quot;right&quot;</span><span class="s2">:</span>
+                        <span class="s1">worldx </span><span class="s2">+= </span><span class="s1">speed</span><span class="s2">;  </span><span class="s0">break</span><span class="s2">;</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+            <span class="s1">spriteCounter</span><span class="s2">++;</span>
+            <span class="s0">if</span><span class="s2">(</span><span class="s1">spriteCounter </span><span class="s2">&gt; </span><span class="s3">12</span><span class="s2">){</span>
+                <span class="s0">if</span><span class="s2">(</span><span class="s1">spriteNum </span><span class="s2">== </span><span class="s3">1</span><span class="s2">){</span>
+                    <span class="s1">spriteNum </span><span class="s2">= </span><span class="s3">2</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s0">else if</span><span class="s2">(</span><span class="s1">spriteNum </span><span class="s2">== </span><span class="s3">2</span><span class="s2">){</span>
+                    <span class="s1">spriteNum </span><span class="s2">= </span><span class="s3">1</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s1">spriteCounter </span><span class="s2">= </span><span class="s3">0</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+    <span class="s0">public void </span><span class="s1">pickUpObj</span><span class="s2">(</span><span class="s0">int </span><span class="s1">i</span><span class="s2">){</span>
+        <span class="s0">if</span><span class="s2">(</span><span class="s1">i </span><span class="s2">!= </span><span class="s3">999</span><span class="s2">){</span>
+            <span class="s1">String objectName </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">].</span><span class="s1">name</span><span class="s2">;</span>
+            <span class="s0">switch </span><span class="s2">(</span><span class="s1">objectName</span><span class="s2">) {</span>
+                <span class="s0">case </span><span class="s4">&quot;coin&quot;</span><span class="s2">:</span>
+                    <span class="s1">haskeys</span><span class="s2">++;</span>
+                    <span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s0">null</span><span class="s2">;</span>
+                    <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">showMessage</span><span class="s2">(</span><span class="s4">&quot;you picked up a Coin!&quot;</span><span class="s2">);</span>
+                    <span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s4">&quot;Master key&quot;</span><span class="s2">:</span>
+                    <span class="s1">hasMkey</span><span class="s2">++;</span>
+                    <span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s0">null</span><span class="s2">;</span>
+                    <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">showMessage</span><span class="s2">(</span><span class="s4">&quot;you picked up The Master Key!!&quot;</span><span class="s2">);</span>
+                    <span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s4">&quot;card&quot;</span><span class="s2">:</span>
+                    <span class="s1">hascard</span><span class="s2">++;</span>
+                    <span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s0">null</span><span class="s2">;</span>
+                    <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">showMessage</span><span class="s2">(</span><span class="s4">&quot;you picked up a Card!&quot;</span><span class="s2">);</span>
+                    <span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s4">&quot;door&quot;</span><span class="s2">:</span>
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">haskeys </span><span class="s2">&gt; </span><span class="s3">0</span><span class="s2">) {</span>
+                        <span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s0">null</span><span class="s2">;</span>
+                        <span class="s1">haskeys</span><span class="s2">--;</span>
+                        <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">showMessage</span><span class="s2">(</span><span class="s4">&quot;you open the door!&quot;</span><span class="s2">);</span>
+                    <span class="s2">}</span>
+                    <span class="s0">else</span><span class="s2">{</span>
+                        <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">showMessage</span><span class="s2">(</span><span class="s4">&quot;a Coin is needed!&quot;</span><span class="s2">);</span>
+                    <span class="s2">}</span>
+                    <span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s4">&quot;mgate&quot;</span><span class="s2">:</span>
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">hasMkey </span><span class="s2">&gt; </span><span class="s3">0</span><span class="s2">) {</span>
+                        <span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s0">null</span><span class="s2">;</span>
+                        <span class="s1">hasMkey</span><span class="s2">--;</span>
+                        <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">showMessage</span><span class="s2">(</span><span class="s4">&quot;you open the door!&quot;</span><span class="s2">);</span>
+                    <span class="s2">}</span>
+                    <span class="s0">else</span><span class="s2">{</span>
+                        <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">showMessage</span><span class="s2">(</span><span class="s4">&quot;You need the Master key!&quot;</span><span class="s2">);</span>
+                    <span class="s2">}</span>
+                    <span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s4">&quot;gate&quot;</span><span class="s2">:</span>
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">hascard </span><span class="s2">== </span><span class="s3">3</span><span class="s2">) {</span>
+                        <span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s0">null</span><span class="s2">;</span>
+                        <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">showMessage</span><span class="s2">(</span><span class="s4">&quot;you open the path!&quot;</span><span class="s2">);</span>
+                    <span class="s2">}</span>
+                    <span class="s0">else</span><span class="s2">{</span>
+                        <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">showMessage</span><span class="s2">(</span><span class="s4">&quot;You need to collect all 3 Cards!&quot;</span><span class="s2">);</span>
+                    <span class="s2">}</span>
+                    <span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s4">&quot;boot&quot;</span><span class="s2">:</span>
+                    <span class="s1">speed</span><span class="s2">++;</span>
+                    <span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s0">null</span><span class="s2">;</span>
+                    <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">showMessage</span><span class="s2">(</span><span class="s4">&quot;speeeed up!&quot;</span><span class="s2">);</span>
+                    <span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s4">&quot;chest&quot;</span><span class="s2">:</span>
+                    <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">Gamefinnished </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+                    <span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s4">&quot;map&quot;</span><span class="s2">:</span>
+                    <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">mapDraw</span><span class="s2">(</span><span class="s3">1</span><span class="s2">);</span>
+                    <span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s4">&quot;map2&quot;</span><span class="s2">:</span>
+                    <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">mapDraw</span><span class="s2">(</span><span class="s3">2</span><span class="s2">);</span>
+                    <span class="s0">break</span><span class="s2">;</span>
+                <span class="s0">case </span><span class="s4">&quot;slime&quot;</span><span class="s2">:</span>
+                <span class="s0">case </span><span class="s4">&quot;uglyface&quot;</span><span class="s2">:</span>
+                <span class="s0">case </span><span class="s4">&quot;Big slime&quot;</span><span class="s2">:</span>
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] </span><span class="s0">instanceof </span><span class="s1">Opponents</span><span class="s2">) {</span>
+                        <span class="s1">Opponents opponent </span><span class="s2">= (</span><span class="s1">Opponents</span><span class="s2">) </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">]; </span><span class="s5">// Safe casting</span>
+                        <span class="s0">if </span><span class="s2">(</span><span class="s1">opponent</span><span class="s2">.</span><span class="s1">defeated</span><span class="s2">) {</span>
+                            <span class="s0">return</span><span class="s2">;</span>
+                        <span class="s2">}</span>
+                        <span class="s0">if </span><span class="s2">(</span><span class="s1">opponent</span><span class="s2">.</span><span class="s1">inBattle</span><span class="s2">) {</span>
+                            <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">showMessage</span><span class="s2">(</span><span class="s4">&quot;You are fighting this opponent!&quot;</span><span class="s2">);</span>
+                            <span class="s0">return</span><span class="s2">;</span>
+                        <span class="s2">}</span>
+                        <span class="s5">// Mark opponent as in battle</span>
+                        <span class="s1">opponent</span><span class="s2">.</span><span class="s1">inBattle </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+
+                        <span class="s5">// Trigger fight</span>
+                        <span class="s1">SwingUtilities</span><span class="s2">.</span><span class="s1">invokeLater</span><span class="s2">(() </span><span class="s1">-&gt; </span><span class="s2">{</span>
+                            <span class="s1">Fight game </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Fight</span><span class="s2">();</span>
+                            <span class="s1">game</span><span class="s2">.</span><span class="s1">setFightListener</span><span class="s2">(</span><span class="s1">victory -&gt; </span><span class="s2">{</span>
+                                <span class="s0">if </span><span class="s2">(</span><span class="s1">victory</span><span class="s2">) {</span>
+                                    <span class="s1">opponent</span><span class="s2">.</span><span class="s1">defeated </span><span class="s2">= </span><span class="s0">true</span><span class="s2">; </span><span class="s5">// Mark opponent as defeated</span>
+                                    <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">showMessage</span><span class="s2">(</span><span class="s4">&quot;You won against &quot; </span><span class="s2">+ </span><span class="s1">objectName</span><span class="s2">);</span>
+                                    <span class="s1">gp</span><span class="s2">.</span><span class="s1">obj</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s0">null</span><span class="s2">; </span><span class="s5">// Remove if needed</span>
+                                <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+                                    <span class="s1">gp</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">showMessage</span><span class="s2">(</span><span class="s4">&quot;You lost against &quot; </span><span class="s2">+ </span><span class="s1">objectName </span><span class="s2">+ </span><span class="s4">&quot; try again.&quot;</span><span class="s2">);</span>
+                                <span class="s2">}</span>
+                                <span class="s1">opponent</span><span class="s2">.</span><span class="s1">inBattle </span><span class="s2">= </span><span class="s0">false</span><span class="s2">; </span><span class="s5">// Unlock battle status</span>
+                            <span class="s2">});</span>
+                            <span class="s1">game</span><span class="s2">.</span><span class="s1">setVisible</span><span class="s2">(</span><span class="s0">true</span><span class="s2">);</span>
+                        <span class="s2">});</span>
+                    <span class="s2">}</span>
+                    <span class="s0">break</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+    <span class="s0">public void </span><span class="s1">draw</span><span class="s2">(</span><span class="s1">Graphics g2</span><span class="s2">){</span>
+        <span class="s1">BufferedImage image </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+        <span class="s5">//player animation</span>
+        <span class="s0">switch</span><span class="s2">(</span><span class="s1">direction</span><span class="s2">){</span>
+            <span class="s0">case </span><span class="s4">&quot;up&quot;</span><span class="s2">:</span>
+                <span class="s0">if</span><span class="s2">(</span><span class="s1">spriteNum </span><span class="s2">== </span><span class="s3">1</span><span class="s2">){</span>
+                <span class="s1">image </span><span class="s2">= </span><span class="s1">up1</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s0">if</span><span class="s2">(</span><span class="s1">spriteNum </span><span class="s2">== </span><span class="s3">2</span><span class="s2">){</span>
+                    <span class="s1">image </span><span class="s2">= </span><span class="s1">up2</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s0">break</span><span class="s2">;</span>
+            <span class="s0">case </span><span class="s4">&quot;down&quot;</span><span class="s2">:</span>
+                <span class="s0">if</span><span class="s2">(</span><span class="s1">spriteNum </span><span class="s2">== </span><span class="s3">1</span><span class="s2">) {</span>
+                    <span class="s1">image </span><span class="s2">= </span><span class="s1">down1</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s0">if</span><span class="s2">(</span><span class="s1">spriteNum </span><span class="s2">== </span><span class="s3">2</span><span class="s2">){</span>
+                    <span class="s1">image </span><span class="s2">= </span><span class="s1">down2</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s0">break</span><span class="s2">;</span>
+            <span class="s0">case </span><span class="s4">&quot;left&quot;</span><span class="s2">:</span>
+                <span class="s0">if</span><span class="s2">(</span><span class="s1">spriteNum </span><span class="s2">== </span><span class="s3">1</span><span class="s2">) {</span>
+                    <span class="s1">image </span><span class="s2">= </span><span class="s1">left1</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s0">if</span><span class="s2">(</span><span class="s1">spriteNum </span><span class="s2">== </span><span class="s3">2</span><span class="s2">){</span>
+                    <span class="s1">image </span><span class="s2">= </span><span class="s1">left2</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s0">break</span><span class="s2">;</span>
+            <span class="s0">case </span><span class="s4">&quot;right&quot;</span><span class="s2">:</span>
+                <span class="s0">if</span><span class="s2">(</span><span class="s1">spriteNum </span><span class="s2">== </span><span class="s3">1</span><span class="s2">) {</span>
+                    <span class="s1">image </span><span class="s2">= </span><span class="s1">right1</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s0">if</span><span class="s2">(</span><span class="s1">spriteNum </span><span class="s2">== </span><span class="s3">2</span><span class="s2">){</span>
+                    <span class="s1">image </span><span class="s2">= </span><span class="s1">right2</span><span class="s2">;</span>
+                <span class="s2">}</span>
+                <span class="s0">break</span><span class="s2">;</span>
+        <span class="s2">}</span>
+        <span class="s1">g2</span><span class="s2">.</span><span class="s1">drawImage</span><span class="s2">(</span><span class="s1">image</span><span class="s2">, </span><span class="s1">ScreenX</span><span class="s2">, </span><span class="s1">ScreenY</span><span class="s2">,</span><span class="s0">null</span><span class="s2">);</span>
+    <span class="s2">}</span>
+<span class="s2">}</span></pre>
+</body>
+</html>

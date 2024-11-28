@@ -1,0 +1,111 @@
+<html>
+<head>
+<title>TileManager.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+TileManager.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">tile</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">Main</span><span class="s2">.</span><span class="s1">GamePanel</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">Main</span><span class="s2">.</span><span class="s1">UtilityTool</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">imageio</span><span class="s2">.</span><span class="s1">ImageIO</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">awt</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">BufferedReader</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">IOException</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">InputStream</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">InputStreamReader</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Objects</span><span class="s2">;</span>
+<span class="s0">public class </span><span class="s1">TileManager </span><span class="s2">{</span>
+    <span class="s1">GamePanel gp</span><span class="s2">;</span>
+    <span class="s0">public </span><span class="s1">Tile</span><span class="s2">[] </span><span class="s1">tile</span><span class="s2">;</span>
+    <span class="s0">public int</span><span class="s2">[][] </span><span class="s1">mapTileNum</span><span class="s2">;</span>
+    <span class="s0">public </span><span class="s1">TileManager</span><span class="s2">(</span><span class="s1">GamePanel gp</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">gp </span><span class="s2">= </span><span class="s1">gp</span><span class="s2">;</span>
+        <span class="s1">tile </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Tile</span><span class="s2">[</span><span class="s3">10</span><span class="s2">];</span>
+        <span class="s1">mapTileNum </span><span class="s2">= </span><span class="s0">new int</span><span class="s2">[</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">maxWorldCol</span><span class="s2">][</span><span class="s1">gp</span><span class="s2">.</span><span class="s1">maxWorldRow</span><span class="s2">];</span>
+        <span class="s1">getTileImage</span><span class="s2">();</span>
+        <span class="s1">loadMap</span><span class="s2">(</span><span class="s4">&quot;/maps/map01.txt&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+    <span class="s0">public void </span><span class="s1">getTileImage</span><span class="s2">() {</span>
+            <span class="s1">setup</span><span class="s2">(</span><span class="s3">0</span><span class="s2">,</span><span class="s4">&quot;grass&quot;</span><span class="s2">,</span><span class="s0">false</span><span class="s2">);</span>
+            <span class="s1">setup</span><span class="s2">(</span><span class="s3">1</span><span class="s2">,</span><span class="s4">&quot;tree1&quot;</span><span class="s2">,</span><span class="s0">true</span><span class="s2">);</span>
+            <span class="s1">setup</span><span class="s2">(</span><span class="s3">2</span><span class="s2">,</span><span class="s4">&quot;earth&quot;</span><span class="s2">,</span><span class="s0">false</span><span class="s2">);</span>
+            <span class="s1">setup</span><span class="s2">(</span><span class="s3">3</span><span class="s2">,</span><span class="s4">&quot;water&quot;</span><span class="s2">,</span><span class="s0">true</span><span class="s2">);</span>
+            <span class="s1">setup</span><span class="s2">(</span><span class="s3">4</span><span class="s2">,</span><span class="s4">&quot;sand&quot;</span><span class="s2">,</span><span class="s0">false</span><span class="s2">);</span>
+            <span class="s1">setup</span><span class="s2">(</span><span class="s3">5</span><span class="s2">,</span><span class="s4">&quot;wall&quot;</span><span class="s2">,</span><span class="s0">true</span><span class="s2">);</span>
+            <span class="s1">setup</span><span class="s2">(</span><span class="s3">6</span><span class="s2">,</span><span class="s4">&quot;Wood&quot;</span><span class="s2">,</span><span class="s0">true</span><span class="s2">);</span>
+            <span class="s1">setup</span><span class="s2">(</span><span class="s3">7</span><span class="s2">,</span><span class="s4">&quot;sign&quot;</span><span class="s2">,</span><span class="s0">true</span><span class="s2">);</span>
+    <span class="s2">}</span>
+    <span class="s0">public void </span><span class="s1">setup</span><span class="s2">(</span><span class="s0">int </span><span class="s1">Index</span><span class="s2">,</span><span class="s1">String imageName</span><span class="s2">,</span><span class="s0">boolean </span><span class="s1">collision</span><span class="s2">) {</span>
+        <span class="s1">UtilityTool utilityTool </span><span class="s2">= </span><span class="s0">new </span><span class="s1">UtilityTool</span><span class="s2">();</span>
+        <span class="s0">try</span><span class="s2">{</span>
+            <span class="s1">tile</span><span class="s2">[</span><span class="s1">Index</span><span class="s2">]=</span><span class="s0">new </span><span class="s1">Tile</span><span class="s2">();</span>
+            <span class="s1">tile</span><span class="s2">[</span><span class="s1">Index</span><span class="s2">].</span><span class="s1">image </span><span class="s2">= </span><span class="s1">ImageIO</span><span class="s2">.</span><span class="s1">read</span><span class="s2">(</span><span class="s1">Objects</span><span class="s2">.</span><span class="s1">requireNonNull</span><span class="s2">(</span><span class="s1">getClass</span><span class="s2">().</span><span class="s1">getResourceAsStream</span><span class="s2">(</span><span class="s4">&quot;/tiles/&quot; </span><span class="s2">+ </span><span class="s1">imageName </span><span class="s2">+ </span><span class="s4">&quot;.png&quot;</span><span class="s2">)));</span>
+            <span class="s1">tile</span><span class="s2">[</span><span class="s1">Index</span><span class="s2">].</span><span class="s1">image </span><span class="s2">= </span><span class="s1">utilityTool</span><span class="s2">.</span><span class="s1">scaledImage</span><span class="s2">(</span><span class="s1">tile</span><span class="s2">[</span><span class="s1">Index</span><span class="s2">].</span><span class="s1">image</span><span class="s2">, </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">, </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">);</span>
+            <span class="s1">tile</span><span class="s2">[</span><span class="s1">Index</span><span class="s2">].</span><span class="s1">collision </span><span class="s2">= </span><span class="s1">collision</span><span class="s2">;</span>
+        <span class="s2">}</span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IOException e</span><span class="s2">){</span>
+            <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+    <span class="s0">public void </span><span class="s1">loadMap</span><span class="s2">(</span><span class="s1">String filePath</span><span class="s2">) {</span>
+        <span class="s0">try </span><span class="s2">{</span>
+            <span class="s1">InputStream is </span><span class="s2">= </span><span class="s1">getClass</span><span class="s2">().</span><span class="s1">getResourceAsStream</span><span class="s2">(</span><span class="s1">filePath</span><span class="s2">);</span>
+            <span class="s1">BufferedReader br </span><span class="s2">= </span><span class="s0">new </span><span class="s1">BufferedReader</span><span class="s2">(</span><span class="s0">new </span><span class="s1">InputStreamReader</span><span class="s2">(</span><span class="s1">is</span><span class="s2">));</span>
+            <span class="s0">int </span><span class="s1">col </span><span class="s2">= </span><span class="s3">0</span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">row </span><span class="s2">= </span><span class="s3">0</span><span class="s2">;</span>
+
+            <span class="s0">while </span><span class="s2">(</span><span class="s1">col </span><span class="s2">&lt; </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">maxWorldCol </span><span class="s2">&amp;&amp; </span><span class="s1">row </span><span class="s2">&lt; </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">maxWorldRow</span><span class="s2">) {</span>
+                <span class="s1">String line </span><span class="s2">= </span><span class="s1">br</span><span class="s2">.</span><span class="s1">readLine</span><span class="s2">();</span>
+                <span class="s0">while </span><span class="s2">(</span><span class="s1">col </span><span class="s2">&lt; </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">maxWorldCol</span><span class="s2">) {</span>
+                    <span class="s1">String</span><span class="s2">[] </span><span class="s1">number </span><span class="s2">= </span><span class="s1">line</span><span class="s2">.</span><span class="s1">split</span><span class="s2">(</span><span class="s4">&quot; &quot;</span><span class="s2">);</span>
+                    <span class="s0">int </span><span class="s1">num </span><span class="s2">= </span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">number</span><span class="s2">[</span><span class="s1">col</span><span class="s2">]);</span>
+                    <span class="s1">mapTileNum</span><span class="s2">[</span><span class="s1">col</span><span class="s2">][</span><span class="s1">row</span><span class="s2">] = </span><span class="s1">num</span><span class="s2">;</span>
+                    <span class="s1">col</span><span class="s2">++;</span>
+                <span class="s2">}</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">col </span><span class="s2">== </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">maxWorldCol</span><span class="s2">) {</span>
+                    <span class="s1">col </span><span class="s2">= </span><span class="s3">0</span><span class="s2">;</span>
+                    <span class="s1">row</span><span class="s2">++;</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+            <span class="s1">br</span><span class="s2">.</span><span class="s1">close</span><span class="s2">();</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IOException e</span><span class="s2">) {</span>
+            <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+    <span class="s0">public void </span><span class="s1">draw</span><span class="s2">(</span><span class="s1">Graphics g2</span><span class="s2">) {</span>
+        <span class="s0">int </span><span class="s1">worldCol </span><span class="s2">= </span><span class="s3">0</span><span class="s2">;</span>
+        <span class="s0">int </span><span class="s1">worldRow </span><span class="s2">= </span><span class="s3">0</span><span class="s2">;</span>
+        <span class="s0">while </span><span class="s2">(</span><span class="s1">worldCol </span><span class="s2">&lt; </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">maxWorldCol </span><span class="s2">&amp;&amp; </span><span class="s1">worldRow </span><span class="s2">&lt; </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">maxWorldRow</span><span class="s2">) {</span>
+            <span class="s0">int </span><span class="s1">tileNum </span><span class="s2">= </span><span class="s1">mapTileNum</span><span class="s2">[</span><span class="s1">worldCol</span><span class="s2">][</span><span class="s1">worldRow</span><span class="s2">];</span>
+            <span class="s0">int </span><span class="s1">WorldX</span><span class="s2">= </span><span class="s1">worldCol </span><span class="s2">* </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">WorldY</span><span class="s2">= </span><span class="s1">worldRow </span><span class="s2">* </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">screenX </span><span class="s2">= </span><span class="s1">WorldX </span><span class="s2">- </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">worldx </span><span class="s2">+ </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">ScreenX</span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">screenY </span><span class="s2">= </span><span class="s1">WorldY </span><span class="s2">- </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">worldy </span><span class="s2">+ </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">ScreenY</span><span class="s2">;</span>
+
+            <span class="s0">if</span><span class="s2">(</span><span class="s1">WorldX </span><span class="s2">+ </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">&gt; </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">worldx </span><span class="s2">- </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">ScreenX </span><span class="s2">&amp;&amp;</span>
+               <span class="s1">WorldX </span><span class="s2">- </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">&lt; </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">worldx </span><span class="s2">+ </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">ScreenX </span><span class="s2">&amp;&amp;</span>
+               <span class="s1">WorldY </span><span class="s2">+ </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">&gt; </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">worldy </span><span class="s2">- </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">ScreenY </span><span class="s2">&amp;&amp;</span>
+               <span class="s1">WorldY </span><span class="s2">- </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">tileSize</span><span class="s2">&lt; </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">worldy </span><span class="s2">+ </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">player</span><span class="s2">.</span><span class="s1">ScreenY</span><span class="s2">) {</span>
+                <span class="s1">g2</span><span class="s2">.</span><span class="s1">drawImage</span><span class="s2">(</span><span class="s1">tile</span><span class="s2">[</span><span class="s1">tileNum</span><span class="s2">].</span><span class="s1">image</span><span class="s2">, </span><span class="s1">screenX</span><span class="s2">, </span><span class="s1">screenY</span><span class="s2">, </span><span class="s0">null</span><span class="s2">);</span>
+            <span class="s2">}</span>
+            <span class="s1">worldCol</span><span class="s2">++;</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">worldCol </span><span class="s2">== </span><span class="s1">gp</span><span class="s2">.</span><span class="s1">maxWorldCol</span><span class="s2">) {</span>
+                <span class="s1">worldCol </span><span class="s2">= </span><span class="s3">0</span><span class="s2">;</span>
+                <span class="s1">worldRow</span><span class="s2">++;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span></pre>
+</body>
+</html>

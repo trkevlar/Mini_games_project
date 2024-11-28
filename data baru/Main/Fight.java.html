@@ -1,0 +1,153 @@
+<html>
+<head>
+<title>Fight.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #2aacb8;}
+.s4 { color: #7a7e85;}
+.s5 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Fight.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">Main</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">swing</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">awt</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">awt</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">ActionEvent</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">awt</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">ActionListener</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">Fight </span><span class="s0">extends </span><span class="s1">JFrame </span><span class="s2">{</span>
+    <span class="s0">private </span><span class="s1">JLabel resultLabel</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">JPanel cardPanel</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">Card playerCard</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">Card opponentCard</span><span class="s2">;</span>
+    <span class="s0">private int </span><span class="s1">playerHealth </span><span class="s2">= </span><span class="s3">20</span><span class="s2">; </span><span class="s4">// Points de vie du joueur</span>
+    <span class="s0">private int </span><span class="s1">opponentHealth </span><span class="s2">= </span><span class="s3">20</span><span class="s2">; </span><span class="s4">// Points de vie de l'adversaire</span>
+    <span class="s0">public boolean </span><span class="s1">winSituation</span><span class="s2">; </span><span class="s4">// Indique le résultat : 1 pour victoire, 0 pour défaite</span>
+    <span class="s0">private </span><span class="s1">FightListener fightListener</span><span class="s2">;</span>
+
+    <span class="s0">public void </span><span class="s1">setFightListener</span><span class="s2">(</span><span class="s1">FightListener listener</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">fightListener </span><span class="s2">= </span><span class="s1">listener</span><span class="s2">;</span>
+    <span class="s2">}</span>
+    <span class="s0">public </span><span class="s1">Fight</span><span class="s2">() {</span>
+        <span class="s1">setTitle</span><span class="s2">(</span><span class="s5">&quot;Card Battle Game&quot;</span><span class="s2">);</span>
+        <span class="s1">setSize</span><span class="s2">(</span><span class="s3">400</span><span class="s2">, </span><span class="s3">400</span><span class="s2">);</span>
+        <span class="s1">setDefaultCloseOperation</span><span class="s2">(</span><span class="s1">DISPOSE_ON_CLOSE</span><span class="s2">);</span>
+        <span class="s1">setLayout</span><span class="s2">(</span><span class="s0">new </span><span class="s1">BorderLayout</span><span class="s2">());</span>
+
+        <span class="s1">resultLabel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s5">&quot;Cliquez sur le bouton pour tirer des cartes !&quot;</span><span class="s2">, </span><span class="s1">SwingConstants</span><span class="s2">.</span><span class="s1">CENTER</span><span class="s2">);</span>
+        <span class="s1">cardPanel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JPanel</span><span class="s2">();</span>
+        <span class="s1">cardPanel</span><span class="s2">.</span><span class="s1">setLayout</span><span class="s2">(</span><span class="s0">new </span><span class="s1">GridLayout</span><span class="s2">(</span><span class="s3">1</span><span class="s2">, </span><span class="s3">2</span><span class="s2">));</span>
+        
+
+        <span class="s4">// Initialiser la bataille en créant les boutons</span>
+        <span class="s1">JButton battleButton </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JButton</span><span class="s2">(</span><span class="s5">&quot;Tirer des cartes&quot;</span><span class="s2">);</span>
+        <span class="s1">battleButton</span><span class="s2">.</span><span class="s1">addActionListener</span><span class="s2">(</span><span class="s0">new </span><span class="s1">ActionListener</span><span class="s2">() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">actionPerformed</span><span class="s2">(</span><span class="s1">ActionEvent e</span><span class="s2">) {</span>
+                <span class="s1">battle</span><span class="s2">();</span>
+            <span class="s2">}</span>
+        <span class="s2">});</span>
+
+        <span class="s4">// Ajout des composants à la fenêtre</span>
+        <span class="s1">add</span><span class="s2">(</span><span class="s1">resultLabel</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">NORTH</span><span class="s2">);</span>
+        <span class="s1">add</span><span class="s2">(</span><span class="s1">cardPanel</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">CENTER</span><span class="s2">);</span>
+        <span class="s1">add</span><span class="s2">(</span><span class="s1">battleButton</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">SOUTH</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private </span><span class="s1">Card drawCard</span><span class="s2">() {</span>
+        <span class="s1">Card</span><span class="s2">[] </span><span class="s1">cards </span><span class="s2">= {</span>
+                <span class="s0">new </span><span class="s1">Card</span><span class="s2">(</span><span class="s5">&quot;Dragon&quot;</span><span class="s2">, </span><span class="s3">8</span><span class="s2">),</span>
+                <span class="s0">new </span><span class="s1">Card</span><span class="s2">(</span><span class="s5">&quot;Knight&quot;</span><span class="s2">, </span><span class="s3">5</span><span class="s2">),</span>
+                <span class="s0">new </span><span class="s1">Card</span><span class="s2">(</span><span class="s5">&quot;Wizard&quot;</span><span class="s2">, </span><span class="s3">7</span><span class="s2">),</span>
+                <span class="s0">new </span><span class="s1">Card</span><span class="s2">(</span><span class="s5">&quot;Goblin&quot;</span><span class="s2">, </span><span class="s3">3</span><span class="s2">),</span>
+                <span class="s0">new </span><span class="s1">Card</span><span class="s2">(</span><span class="s5">&quot;Troll&quot;</span><span class="s2">, </span><span class="s3">6</span><span class="s2">)</span>
+        <span class="s2">};</span>
+        <span class="s0">return </span><span class="s1">cards</span><span class="s2">[(</span><span class="s0">int</span><span class="s2">) (</span><span class="s1">Math</span><span class="s2">.</span><span class="s1">random</span><span class="s2">() * </span><span class="s1">cards</span><span class="s2">.</span><span class="s1">length</span><span class="s2">)];</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">battle</span><span class="s2">() {</span>
+        <span class="s1">playerCard </span><span class="s2">= </span><span class="s1">drawCard</span><span class="s2">();</span>
+        <span class="s1">opponentCard </span><span class="s2">= </span><span class="s1">drawCard</span><span class="s2">();</span>
+
+        <span class="s1">String message </span><span class="s2">= </span><span class="s5">&quot;Vous avez tiré : &quot; </span><span class="s2">+ </span><span class="s1">playerCard</span><span class="s2">.</span><span class="s1">getName</span><span class="s2">() + </span><span class="s5">&quot; (Attaque : &quot; </span><span class="s2">+ </span><span class="s1">playerCard</span><span class="s2">.</span><span class="s1">getDamage</span><span class="s2">() + </span><span class="s5">&quot;)</span><span class="s0">\n</span><span class="s5">&quot; </span><span class="s2">+</span>
+                <span class="s5">&quot;L'adversaire a tiré : &quot; </span><span class="s2">+ </span><span class="s1">opponentCard</span><span class="s2">.</span><span class="s1">getName</span><span class="s2">() + </span><span class="s5">&quot; (Attaque : &quot; </span><span class="s2">+ </span><span class="s1">opponentCard</span><span class="s2">.</span><span class="s1">getDamage</span><span class="s2">() + </span><span class="s5">&quot;)</span><span class="s0">\n</span><span class="s5">&quot;</span><span class="s2">;</span>
+
+        <span class="s4">// Calcul des dégâts</span>
+        <span class="s1">opponentHealth </span><span class="s2">-= </span><span class="s1">playerCard</span><span class="s2">.</span><span class="s1">getDamage</span><span class="s2">();</span>
+        <span class="s1">playerHealth </span><span class="s2">-= </span><span class="s1">opponentCard</span><span class="s2">.</span><span class="s1">getDamage</span><span class="s2">();</span>
+
+        <span class="s4">// Affichage des points de vie</span>
+        <span class="s1">message </span><span class="s2">+= </span><span class="s5">&quot;Points de vie - Vous : &quot; </span><span class="s2">+ </span><span class="s1">Math</span><span class="s2">.</span><span class="s1">max</span><span class="s2">(</span><span class="s1">playerHealth</span><span class="s2">, </span><span class="s3">0</span><span class="s2">) + </span><span class="s5">&quot;, Adversaire : &quot; </span><span class="s2">+ </span><span class="s1">Math</span><span class="s2">.</span><span class="s1">max</span><span class="s2">(</span><span class="s1">opponentHealth</span><span class="s2">, </span><span class="s3">0</span><span class="s2">) + </span><span class="s5">&quot;</span><span class="s0">\n</span><span class="s5">&quot;</span><span class="s2">;</span>
+
+        <span class="s4">// Vérification de la fin du jeu</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">playerHealth </span><span class="s2">&lt;= </span><span class="s3">0 </span><span class="s2">&amp;&amp; </span><span class="s1">opponentHealth </span><span class="s2">&lt;= </span><span class="s3">0</span><span class="s2">) {</span>
+            <span class="s1">winSituation </span><span class="s2">= </span><span class="s0">false</span><span class="s2">; </span><span class="s4">// Match nul traité comme une défaite</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">fightListener </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) </span><span class="s1">fightListener</span><span class="s2">.</span><span class="s1">onBattleResult</span><span class="s2">(</span><span class="s0">false</span><span class="s2">);</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">dispose</span><span class="s2">();</span>
+        <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">playerHealth </span><span class="s2">&lt;= </span><span class="s3">0</span><span class="s2">) {</span>
+            <span class="s1">winSituation </span><span class="s2">= </span><span class="s0">false</span><span class="s2">; </span><span class="s4">// Défaite</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">fightListener </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) </span><span class="s1">fightListener</span><span class="s2">.</span><span class="s1">onBattleResult</span><span class="s2">(</span><span class="s0">false</span><span class="s2">);</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">dispose</span><span class="s2">();</span>
+        <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">opponentHealth </span><span class="s2">&lt;= </span><span class="s3">0</span><span class="s2">) {</span>
+            <span class="s1">winSituation </span><span class="s2">= </span><span class="s0">true</span><span class="s2">; </span><span class="s4">// Victoire</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">fightListener </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) </span><span class="s1">fightListener</span><span class="s2">.</span><span class="s1">onBattleResult</span><span class="s2">(</span><span class="s0">true</span><span class="s2">);</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">dispose</span><span class="s2">();</span>
+        <span class="s2">}</span>
+
+        <span class="s1">resultLabel</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s5">&quot;&lt;html&gt;&quot; </span><span class="s2">+ </span><span class="s1">message</span><span class="s2">.</span><span class="s1">replaceAll</span><span class="s2">(</span><span class="s5">&quot;</span><span class="s0">\n</span><span class="s5">&quot;</span><span class="s2">, </span><span class="s5">&quot;&lt;br&gt;&quot;</span><span class="s2">) + </span><span class="s5">&quot;&lt;/html&gt;&quot;</span><span class="s2">);</span>
+        <span class="s1">cardPanel</span><span class="s2">.</span><span class="s1">removeAll</span><span class="s2">();</span>
+        <span class="s1">cardPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">createCardButton</span><span class="s2">(</span><span class="s1">playerCard</span><span class="s2">));</span>
+        <span class="s1">cardPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">createCardButton</span><span class="s2">(</span><span class="s1">opponentCard</span><span class="s2">));</span>
+        <span class="s1">cardPanel</span><span class="s2">.</span><span class="s1">revalidate</span><span class="s2">();</span>
+        <span class="s1">cardPanel</span><span class="s2">.</span><span class="s1">repaint</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private </span><span class="s1">JButton createCardButton</span><span class="s2">(</span><span class="s1">Card card</span><span class="s2">) {</span>
+        <span class="s1">JButton button </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JButton</span><span class="s2">(</span><span class="s1">card</span><span class="s2">.</span><span class="s1">getName</span><span class="s2">());</span>
+        <span class="s1">button</span><span class="s2">.</span><span class="s1">addActionListener</span><span class="s2">(</span><span class="s0">new </span><span class="s1">ActionListener</span><span class="s2">() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">actionPerformed</span><span class="s2">(</span><span class="s1">ActionEvent e</span><span class="s2">) {</span>
+                <span class="s1">showDamage</span><span class="s2">(</span><span class="s1">card</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">});</span>
+        <span class="s0">return </span><span class="s1">button</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">showDamage</span><span class="s2">(</span><span class="s1">Card card</span><span class="s2">) {</span>
+        <span class="s1">resultLabel</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s1">card</span><span class="s2">.</span><span class="s1">getName</span><span class="s2">() + </span><span class="s5">&quot; inflige &quot; </span><span class="s2">+ </span><span class="s1">card</span><span class="s2">.</span><span class="s1">getDamage</span><span class="s2">() + </span><span class="s5">&quot; dégâts !&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+    <span class="s0">public interface </span><span class="s1">FightListener </span><span class="s2">{</span>
+        <span class="s0">void </span><span class="s1">onBattleResult</span><span class="s2">(</span><span class="s0">boolean </span><span class="s1">victory</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">class </span><span class="s1">Card </span><span class="s2">{</span>
+        <span class="s0">private final </span><span class="s1">String name</span><span class="s2">;</span>
+        <span class="s0">private final int </span><span class="s1">damage</span><span class="s2">;</span>
+
+        <span class="s0">public </span><span class="s1">Card</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">, </span><span class="s0">int </span><span class="s1">damage</span><span class="s2">) {</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">name </span><span class="s2">= </span><span class="s1">name</span><span class="s2">;</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">damage </span><span class="s2">= </span><span class="s1">damage</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s0">public int </span><span class="s1">getDamage</span><span class="s2">() {</span>
+            <span class="s0">return </span><span class="s1">damage</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s0">public </span><span class="s1">String getName</span><span class="s2">() {</span>
+            <span class="s0">return </span><span class="s1">name</span><span class="s2">;</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+<span class="s2">}</span></pre>
+</body>
+</html>
